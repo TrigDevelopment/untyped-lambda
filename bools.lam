@@ -1,0 +1,31 @@
+or true true 
+  = (\a b -> a a b) (\a b -> a) (\a b -> a)
+  = (\a b -> a) (\a b -> a) (\a b -> a)
+  = \a b -> a
+
+or true false 
+  = (\a b -> a a b) true false
+  = true true false
+  = (\a b -> a) true false
+  = true
+
+or false true 
+  = (\a b -> a a b) false true
+  = false false true
+  = true
+
+or false false 
+  = (\a b -> a a b) false false
+  = false false false
+  = false
+
+and false
+  = (\a b -> a b false) false
+  = \b -> false b false
+  = \b -> false
+
+and true
+  = (\a b -> a b false) true
+  = \b -> true b false
+  = \b -> b
+  = id

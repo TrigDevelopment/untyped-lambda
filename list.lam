@@ -1,0 +1,27 @@
+-- from Computerphile
+true 
+  = \x y -> x
+false 
+  = \x y -> y
+not 
+  = \b -> b false true
+
+-- from Introduction to Lambda Calculus by Henk Barendregt and Erik Barendsen
+omega 
+  = \x -> x x
+bigomega 
+  = omega omega
+gcomb 
+  = y s
+
+-- mine
+or 
+  = \a b -> a a b
+and 
+  = \a b -> a b false
+id 
+  = \a -> a
+pairid 
+  = \a b -> a b
+pairinv
+  = \a b -> b a
