@@ -1,0 +1,98 @@
+chplus true true
+  = (\x y p q -> x p (y p q)) (a b -> a) (c d -> c)
+  = p q -> (a b -> a) p ((c d -> c) p q)
+  = p q -> p
+= true
+
+chplus false false
+  = (x y p q -> x p (y p q)) false false
+  = p q -> false p (false p q)
+  = p q -> false p q
+  = p q -> q
+= false
+
+chplus false chone
+  = (x y p q -> x p (y p q)) false chone
+  = p q -> false p (chone p q)
+  = p q -> chone p q
+  = p q -> (f x -> f x) p q
+  = p q -> p q
+= chone
+
+chplus chone false
+  = (x y p q -> x p (y p q)) chone false
+  = p q -> chone p (false p q)
+  = p q -> chone p q
+  = p q -> (f x -> f x) p q
+  = p q -> p q
+= chone
+
+chplus chone chone
+  = (x y p q -> x p (y p q)) chone chone
+  = p q -> chone p (chone p q)
+  = p q -> (a b -> a b) p (chone p q)
+  = p q -> p (chone p q)
+  = p q -> p (p q)
+= chtwo
+
+chplus chone chtwo
+  = (x y p q -> x p (y p q)) chone chtwo
+  = p q -> chone p (chtwo p q)
+  = p q -> p (chtwo p q)
+  = p q -> p ((a b -> a (a b)) p q)
+  = p q -> p (p (p q))
+= chthree
+
+chplus chtwo chone
+  = (x y p q -> x p (y p q)) chtwo chone
+  = p q -> chtwo p (chone p q)
+  = p q -> chtwo p (p q)
+  = p q -> p (p (p q))
+= chthree
+
+chplus chtwo chtwo
+  = (x y p q -> x p (y p q)) chtwo chtwo
+  = p q -> chtwo p (chtwo p q)
+  = p q -> chtwo p (p (p q))
+  = p q -> p (p (p (p q)))
+= chfour
+
+chplus chtwo chthree
+  = (x y p q -> x p (y p q)) chtwo chthree
+  = p q -> chtwo p (chthree p q)
+  = p q -> chtwo p (p (p (p q)))
+  = p q -> p (p (p (p (p q))))
+= chfive
+
+chmult false false
+  = (x y z -> x (y z)) false false
+  = z -> false (false z)
+  = z -> false ((a b -> b) z)
+  = z -> false (b -> b)
+  = z -> (a c -> c) (b -> b)
+  = z c -> c
+= false
+
+chmult false chone
+  = (x y z -> x (y z)) false chone
+  = z -> false (chone z)
+  = z -> false ([chone = a b -> a b] z)
+  = z -> false ((a b -> a b) z)
+  = z -> false [(a b -> a b) z = b -> z b]
+  = z -> false (b -> z b)
+  = z -> [false = a b -> b] (b -> z b)
+  = z -> (a b -> b) (b -> z b)
+  = z -> b -> b
+  = z b -> b
+= false
+
+ chmult chone chone
+  = (x y z -> x                     (y            z)) chone chone
+  =      z -> chone                 (chone        z)
+  =      z -> chone                 ((a b -> a b) z)
+  =      z -> chone                    (b -> z b)
+  =      z -> (x y -> x          y)    (b -> z b)
+  =      z ->    y -> (b -> z b) y
+  =      z       y -> (b -> z b) y
+  =      z       y -> z          y
+= chone

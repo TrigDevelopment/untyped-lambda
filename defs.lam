@@ -1,0 +1,27 @@
+-- from Computerphile
+true = \x y -> x
+false = \x y -> y
+not = \b -> b false true
+
+-- from Introduction to Lambda Calculus by Henk Barendregt and Erik Barendsen
+omega = \x -> x x
+bigomega = omega omega
+gcomb = ycomb scomb
+scomb = \xyz -> x z (y z)
+ycomb = \f -> (\x -> f (x x)) (\x -> f (x x))
+
+-- chzero could be \f x -> x, but it is false
+chone = \f x -> f x
+chtwo = \f x -> f (f x)
+chthree = \f x -> f (f (f x))
+chfour = f x -> f (f (f (f x)))
+chfive = f x -> f (f (f (f (f x))))
+
+chplus = \x y p q -> x p (y p q)
+chmult = \x y z -> x (y z)
+chexp = \x y -> y x
+
+-- mine
+or = \a b -> a a b
+and = \a b -> a b false
+id = \a -> a
