@@ -96,3 +96,22 @@ chmult false chone
   =      z       y -> (b -> z b) y
   =      z       y -> z          y
 = chone
+
+chmult chone chtwo
+  | (x y z -> x                         (y                z)) chone chtwo
+  |  ^ ^      (chone                  )  (chtwo         )     ~~~~~ ~~~~~
+  |                                       a b -> a (a b)   
+  |                                       ^ b -> z (z b)  ~
+  |            c d -> (c           ) d
+  |            ^       b -> z (z b)         ~~~~~~~~~~~~
+  |                    ^    z (z d)  ~
+  = z d -> z (z d)
+= chtwo
+
+chmult chtwo chtwo
+  | (x y z -> (x                                           ) (y             ) z)) chtwo chtwo
+  |  ^ ^ z ->  chtwo                                          chtwo           z   ~~~~~ ~~~~~
+  |            a b -> (a             ) ((a             ) b)   c d -> c (c d)
+  |                                                     ^            z  z     ~
+  |            ^       d -> c (c d)    c d -> c (c d)       ~~~~~~~~~~~~~~
+  |              
