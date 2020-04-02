@@ -109,9 +109,28 @@ chmult chone chtwo
 = chtwo
 
 chmult chtwo chtwo
-  | (x y z -> (x                                           ) (y             ) z)) chtwo chtwo
-  |  ^ ^ z ->  chtwo                                          chtwo           z   ~~~~~ ~~~~~
-  |            a b -> (a             ) ((a             ) b)   c d -> c (c d)
-  |                                                     ^            z  z     ~
-  |            ^       d -> c (c d)    c d -> c (c d)       ~~~~~~~~~~~~~~
-  |              
+  | (x y z -> x                                                 (y                z)) chtwo chtwo
+  |  ^ ^ z -> chtwo                                             (chtwo            z)  ~~~~~ ~~~~~
+  |      z -> chtwo                                             ({a b -> a (a b)} z)
+  |      z -> chtwo                                             ( ^ b -> z (z b)  ~)
+  |      z -> {c d -> c                     (c              d)} (   b -> z (z b)   )
+  |      z ->  ^ d -> (b -> z (z b       )) ((b -> z (z b)) d)  ~~~~~~~~~~~~~~~~~~~~
+  |      z       d -> (b -> z (z b       ))   ^   (z (z d)) ~
+  |      z       d ->  ^    z (z (z (z d)))       ~~~~~~~~~
+  | z d -> z (z (z (z d)))
+= chfour
+
+chmult chtwo chthree
+  | a -> chtwo                                                    (chthree a       )
+  | a -> chtwo                                                    (b -> a (a (a b)))
+  | a -> x -> (b -> a (a (a b            ))) ((b -> a (a (a b))) x)
+  | a    x -> (b -> a (a (a b            ))) (      a (a (a x))   )
+  | a    x ->       a (a (a (a (a (a x)))))
+| chsix
+
+chplus chone
+  | (x y p q -> x                 p (y p q)) chone
+  |    y p q -> chone             p (y p q)
+  |    y p q -> (f x -> f x     ) p (y p q)
+  |    y p q ->         p (y p q)
+  |    n f x ->         f (n f x)
