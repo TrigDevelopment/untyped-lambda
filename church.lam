@@ -134,3 +134,27 @@ chplus chone
   |    y p q -> (f x -> f x     ) p (y p q)
   |    y p q ->         p (y p q)
   |    n f x ->         f (n f x)
+| a b c -> b (a b c)
+
+chmult chthree chthree
+  | a -> chthree                                      (chthree a)
+  | a -> (b c -> b         (b         (b         c))) (chthree a)
+  | a ->    c -> chthree a (chthree a (chthree a c))
+  | a c -> a (a (a (chthree a (chthree a c))))
+  | a c -> a (a (a (a (a (a (chthree a c))))))
+| a c -> a (a (a (a (a (a (a (a (a c))))))))
+
+chplus chthree chthree
+  | (x y p q -> x p (y p q)) chthree chthree
+  | p q -> chthree p (chthree p q)
+  | p q -> chthree p (p (p (p q)))
+| p q -> p (p (p (p (p (p q)))))
+
+chplus chthree chfour
+  | a b -> chthree a (chfour a b)
+  | a b -> a (a (a (chfour a b)))
+  | a b -> a (a (a (a (a (a (a b))))))
+
+chplus chtwo chfive
+  | a b -> chtwo a (chfive a b)
+  | a b -> a (a (a (a (a (a (a b))))))
