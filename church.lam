@@ -153,8 +153,35 @@ chplus chthree chthree
 chplus chthree chfour
   | a b -> chthree a (chfour a b)
   | a b -> a (a (a (chfour a b)))
-  | a b -> a (a (a (a (a (a (a b))))))
+| a b -> a (a (a (a (a (a (a b))))))
 
 chplus chtwo chfive
   | a b -> chtwo a (chfive a b)
-  | a b -> a (a (a (a (a (a (a b))))))
+| a b -> a (a (a (a (a (a (a b))))))
+
+chexp chone chone
+  | (a b -> b a) chone chone
+  | chone chone
+  | (f x -> f x) chone
+  | x -> chone x
+  | x -> (b -> x b)
+| chone
+
+chexp chone chtwo
+  | chtwo chone
+  | (a b -> a (a b)) chone
+  | b -> chone (chone b)
+  | b -> chone (c -> b c)
+  | b -> d -> (c -> b c) d
+  | b d -> b d
+| chone
+
+chexp chone chthree
+  | chthree chone
+  | a -> chone (chone (chone a))
+  | a -> b -> (chone (chone a)) b
+  | a -> b -> (c -> (chone a) c) b
+  | a b -> (chone a b)
+  | a b -> a b
+| chone
+
