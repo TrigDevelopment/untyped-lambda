@@ -185,3 +185,44 @@ chexp chone chthree
   | a b -> a b
 | chone
 
+chexp chtwo chtwo
+ | chtwo chtwo
+ | (f x -> f (f x)) chtwo
+ | x -> chtwo (chtwo x)
+ | x -> chtwo ((a b -> a (a b)) x)
+ | x -> chtwo (b -> x (x b))
+ | x -> (c d -> c (c d)) (b -> x (x b))
+ | x -> d -> (b -> x (x b)) ((b -> x (x b)) d)
+ | x -> d -> (b -> x (x b)) (x (x d))
+ | x -> d -> x (x (x (x d)))
+| chfour
+
+chexp chtwo chthree
+  | chthree chtwo
+  | a -> chtwo (chtwo (chtwo a))
+  | a -> chtwo (chtwo (x -> a (a x)))
+  | a -> chtwo (b -> (x -> a (a x)) ((x -> a (a x)) b))
+  | a -> chtwo (b -> (x -> a (a x)) (a (a b)))
+  | a -> chtwo (b -> (chtwo a) (chtwo a b))
+  | a -> chtwo (b -> chtwo a (chtwo a b))
+  | chtwo a (a (chtwo a b))
+          ~~~~~~~~b~~~~~~~~
+    ~~~~~~~~~~~a~~~~~~~~~~~
+  | a (a (chtwo a b)) (a (a (chtwo a b)) c)
+    ~~~~~~~~b~~~~~~~~  ~~~~~~~~b~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~c~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~a~~~~~~~~~~~~~~~~~~~
+  | a (a (chtwo a b)) (a (a (chtwo a c)))
+    ~~~~~~~~b~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~c~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~a~~~~~~~~~~~~~~~~~~~
+  | a (a (chtwo a (a (a (chtwo a c))))) 
+    ~~~~~~~~~~~~~~~~~~~c~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~a~~~~~~~~~~~~~~~
+  | a (a (chtwo a (a (a (a (a c)))))) 
+    ~~~~~~~~~~~~~~~~~~~c~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~a~~~~~~~~~~~~~
+  | a (a (a (a (a (a (a (a c))))))) 
+    ~~~~~~~~~~~~~~~~~~~c~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~a~~~~~~~~~~~
+| cheight
